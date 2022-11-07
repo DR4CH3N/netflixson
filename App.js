@@ -1,6 +1,7 @@
 import {
   Button,
   Image,
+  Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -24,13 +25,23 @@ const App = () => {
       </View>
 
       <View style={estilos.viewBotoes}>
-        <Button title="Buscar filmes" />
-        <Button title="Favoritos" />
+        <Pressable style={estilos.botaoInicial}>
+          <Text style={estilos.textoBotao}>Buscar filmes!</Text>
+        </Pressable>
+
+        <Pressable style={estilos.botaoInicial}>
+          <Text>Favoritos</Text>
+        </Pressable>
       </View>
 
       <View style={estilos.viewRodape}>
-        <Button title="Privacidade" />
-        <Button title="Sobre" />
+        <Pressable>
+          <Text style={estilos.textoRodape}>Privacidade</Text>
+        </Pressable>
+
+        <Pressable>
+          <Text style={estilos.textoRodape}>Sobre</Text>
+        </Pressable>
       </View>
     </SafeAreaView>
   );
@@ -42,7 +53,7 @@ const estilos = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: "black",
+    backgroundColor: "gray",
     justifyContent: "center",
   },
   tituloApp: {
@@ -62,6 +73,16 @@ const estilos = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "center",
   },
+  botaoInicial: {
+    borderStyle: "solid",
+    borderWidth: 2,
+    padding: 16,
+    backgroundColor: "#5451a6",
+    color: "white",
+  },
+  textoBotao: {
+    color: "white",
+  },
   viewBotoes: {
     flex: 2,
     justifyContent: "space-evenly",
@@ -74,6 +95,11 @@ const estilos = StyleSheet.create({
     flex: 0.5,
     justifyContent: "space-between",
     flexDirection: "row",
-    width: "80%",
+    width: "100%",
+    backgroundColor: "#5451a6",
+  },
+  textoRodape: {
+    color: "white",
+    padding: 16,
   },
 });
