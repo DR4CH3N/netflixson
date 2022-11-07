@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { useFonts } from "expo-font";
 import logo from "./assets/images/logo.png";
+import { Ionicons } from "@expo/vector-icons";
 const App = () => {
   const [fonteCarregada] = useFonts({
     monoton: require("./assets/fonts/Monoton-Regular.ttf"),
@@ -24,22 +25,27 @@ const App = () => {
         <Text style={estilos.tituloApp}>Netflixson</Text>
       </View>
 
+      {/* pressable é um componente generico que permite a criação de botões (ou qualquer outra coisa pressionavel) customizados */}
       <View style={estilos.viewBotoes}>
         <Pressable style={estilos.botaoInicial}>
+          <Ionicons name="search-circle" size={24} color="white" />
           <Text style={estilos.textoBotao}>Buscar filmes!</Text>
         </Pressable>
 
         <Pressable style={estilos.botaoInicial}>
-          <Text>Favoritos</Text>
+          <Ionicons name="star" size={24} color="gold" />
+          <Text style={estilos.textoBotao}>Favoritos</Text>
         </Pressable>
       </View>
 
       <View style={estilos.viewRodape}>
         <Pressable>
+          <Ionicons name="lock-closed" size={24} color="black" />
           <Text style={estilos.textoRodape}>Privacidade</Text>
         </Pressable>
 
         <Pressable>
+          <Ionicons name="information-circle" size={24} color="black" />
           <Text style={estilos.textoRodape}>Sobre</Text>
         </Pressable>
       </View>
