@@ -1,3 +1,4 @@
+import { useFonts } from "expo-font";
 import {
   Button,
   Image,
@@ -7,46 +8,54 @@ import {
   Text,
   View,
 } from "react-native";
-import { useFonts } from "expo-font";
+
 import logo from "./assets/images/logo.png";
+
 import { Ionicons } from "@expo/vector-icons";
+
+const corPrimaria = "#5451a6";
+
 const App = () => {
   const [fonteCarregada] = useFonts({
     monoton: require("./assets/fonts/Monoton-Regular.ttf"),
   });
 
-  /* a condicional abaixo serve apenas para dar um tempo suficiente para o carregamento do arquivo de fonte antes do return do componente. */
+  /* A condicional abaixo serve apenas para dar um pequeno
+  tempo suficiente para o carregamento do arquivo de fonte
+  antes do return do componente. */
   if (!fonteCarregada) return <Text>Fonte sendo carregada...</Text>;
 
   return (
     <SafeAreaView style={estilos.container}>
       <View style={estilos.viewLogo}>
         <Image style={estilos.logo} source={logo} />
-        <Text style={estilos.tituloApp}>Netflixson</Text>
+        <Text style={estilos.tituloApp}>Dá Hora Filmes</Text>
       </View>
 
-      {/* pressable é um componente generico que permite a criação de botões (ou qualquer outra coisa pressionavel) customizados */}
       <View style={estilos.viewBotoes}>
         <Pressable style={estilos.botaoInicial}>
-          <Ionicons name="search-circle" size={24} color="white" />
-          <Text style={estilos.textoBotao}>Buscar filmes!</Text>
+          <Text style={estilos.textoBotao}>
+            <Ionicons name="search" size={16} color="white" /> Buscar Filmes
+          </Text>
         </Pressable>
 
         <Pressable style={estilos.botaoInicial}>
-          <Ionicons name="star" size={24} color="gold" />
-          <Text style={estilos.textoBotao}>Favoritos</Text>
+          <Text style={estilos.textoBotao}>
+            <Ionicons name="star" size={16} color="gold" /> Favoritos
+          </Text>
         </Pressable>
       </View>
 
       <View style={estilos.viewRodape}>
-        <Pressable>
-          <Ionicons name="lock-closed" size={24} color="black" />
-          <Text style={estilos.textoRodape}>Privacidade</Text>
+        <Pressable style={estilos.botaoRodape}>
+          <Text style={estilos.textoBotao}>
+            <Ionicons name="lock-closed" size={16} color="white" /> Privacidade
+          </Text>
         </Pressable>
-
-        <Pressable>
-          <Ionicons name="information-circle" size={24} color="black" />
-          <Text style={estilos.textoRodape}>Sobre</Text>
+        <Pressable style={estilos.botaoRodape}>
+          <Text style={estilos.textoBotao}>
+            <Ionicons name="information-circle" size={16} color="white" /> Sobre
+          </Text>
         </Pressable>
       </View>
     </SafeAreaView>
@@ -57,55 +66,52 @@ export default App;
 
 const estilos = StyleSheet.create({
   container: {
+    backgroundColor: "white",
     flex: 1,
     alignItems: "center",
-    backgroundColor: "gray",
     justifyContent: "center",
   },
-  tituloApp: {
-    fontFamily: "monoton",
-    fontSize: 36,
-    color: "#5451a6",
-    // fontWeight: "bold",
+  viewLogo: {
+    flex: 3,
+    textAlign: "center",
+    justifyContent: "flex-end",
+    alignItems: "center",
   },
   logo: {
     width: 128,
     height: 128,
   },
-  viewLogo: {
-    flex: 3,
+  tituloApp: {
+    fontSize: 32,
+    fontFamily: "monoton",
+    color: corPrimaria,
+    // fontWeight: "bold",
+  },
+  viewBotoes: {
+    flex: 2,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "flex-start",
     width: "80%",
-    textAlign: "center",
-    justifyContent: "flex-end",
-    alignItems: "center",
   },
   botaoInicial: {
     borderStyle: "solid",
     borderWidth: 2,
     padding: 16,
-    backgroundColor: "#5451a6",
-    color: "white",
+    backgroundColor: corPrimaria,
   },
   textoBotao: {
     color: "white",
   },
-  viewBotoes: {
-    flex: 2,
-    justifyContent: "space-evenly",
-    flexDirection: "row",
-    width: "80%",
-    alignItems: "flex-start",
-  },
   viewRodape: {
-    alignItems: "center",
     flex: 0.5,
-    justifyContent: "space-between",
     flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     width: "100%",
-    backgroundColor: "#5451a6",
+    backgroundColor: corPrimaria,
   },
-  textoRodape: {
-    color: "white",
+  botaoRodape: {
     padding: 16,
   },
 });
