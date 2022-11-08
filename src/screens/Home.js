@@ -22,7 +22,7 @@ const Home = () => {
     <SafeAreaView style={estilos.container}>
       <View style={estilos.viewLogo}>
         <Image style={estilos.logo} source={logo} />
-        <Text style={estilos.tituloApp}>Dá Hora Filmes</Text>
+        <Text style={estilos.tituloApp}>Netflixson</Text>
       </View>
 
       <View style={estilos.viewBotoes}>

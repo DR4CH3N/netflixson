@@ -1,21 +1,29 @@
-import { StatusBar } from "react-native";
-import { StyleSheet } from "react-native";
+import { StatusBar, StyleSheet } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 import Favoritos from "./src/screens/Favoritos";
 import FormBusca from "./src/screens/FormBusca";
-import Sobre from "./src/screens/Sobre";
-
 import Home from "./src/screens/Home";
 import Privacidade from "./src/screens/Privacidade";
+import Sobre from "./src/screens/Sobre";
 
 const App = () => {
+  /* Inicializando através de uma constante
+  o gerenciador de navegação Stack (pilha de telas) */
+  const Stack = createNativeStackNavigator();
+
   return (
-    /* opções para o barstyle: dark-content, light-content ou default */
     <>
-      <StatusBar barStyle={"dark-content"} />
-      <Favoritos />
-      <FormBusca />
-      <Sobre />
-      <Privacidade />
+      <StatusBar />
+
+      {/* O NavigationContainer deve envolver todas as telas
+      navegáveis do nosso App. */}
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen component={Home} name="Home" />
+        </Stack.Navigator>
+      </NavigationContainer>
     </>
   );
 };
