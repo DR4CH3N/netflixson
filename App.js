@@ -20,8 +20,12 @@ const App = () => {
       {/* O NavigationContainer deve envolver todas as telas
       navegáveis do nosso App. */}
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="Home">
           <Stack.Screen component={Home} name="Home" />
+          <Stack.Screen component={FormBusca} name="FormBusca" />
+          <Stack.Screen component={Favoritos} name="Favoritos" />
+          <Stack.Screen component={Privacidade} name="Privacidade" />
+          <Stack.Screen component={Sobre} name="Sobre" />
         </Stack.Navigator>
       </NavigationContainer>
     </>
