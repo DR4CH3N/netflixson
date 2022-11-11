@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import api from "./services/api";
 
+import Loading from "../components/Loading";
+
 import apiKey from "../../apiKey";
 
 const Resultados = ({ route }) => {
@@ -27,6 +29,7 @@ const Resultados = ({ route }) => {
           },
         });
 
+        /* simulando tempo de carregamento lento usando temporizador setInterval */
         setInterval(() => {
           setLoading(false);
         }, 3000);
@@ -39,8 +42,7 @@ const Resultados = ({ route }) => {
     buscarFilmes();
   }, []);
 
-  if (loading) return <Text>Carregando os filmes....</Text>;
-
+  if (loading) return <Loading />;
   return (
     <SafeAreaView style={estilos.container}>
       <Text>Você buscou por: {filme}</Text>
