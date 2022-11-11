@@ -10,6 +10,7 @@ const Resultados = ({ route }) => {
   const { filme } = route.params;
 
   const [resultados, setResultados] = useState([]);
+  const [loading, setLoading] = useState(true);
   /* assim que entrarmos em resultado, é executada a função async buscarFilmes que por sua vez através do axios executa */
 
   useEffect(() => {
@@ -26,6 +27,10 @@ const Resultados = ({ route }) => {
           },
         });
 
+        setInterval(() => {
+          setLoading(false);
+        }, 3000);
+
         setResultados(resposta.data.results);
       } catch (error) {
         console.log("deu ruim na busca da API " + error.message);
@@ -34,7 +39,7 @@ const Resultados = ({ route }) => {
     buscarFilmes();
   }, []);
 
-  console.log(resultados);
+  if (loading) return <Text>Carregando os filmes....</Text>;
 
   return (
     <SafeAreaView style={estilos.container}>
