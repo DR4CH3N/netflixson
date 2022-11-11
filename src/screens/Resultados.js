@@ -41,15 +41,21 @@ const Resultados = ({ route }) => {
     }
     buscarFilmes();
   }, []);
-
-  if (loading) return <Loading />;
+  // forma 1
+  // if (loading) return <Loading />;
   return (
     <SafeAreaView style={estilos.container}>
       <Text>Você buscou por: {filme}</Text>
+      {/* forma 2 */}
+      {/* caso loading for true, componente Loading será executado (operador evaluate, só pode ser usado no JSX) */}
+      {loading && <Loading />}
+
       <View style={estilos.viewFilmes}>
-        {resultados.map((resultado) => {
-          return <Text key={resultado.id}> {resultado.title}</Text>;
-        })}
+        {/* se loading for false, renderize o resultado do map */}
+        {!loading &&
+          resultados.map((resultado) => {
+            return <Text key={resultado.id}> {resultado.title}</Text>;
+          })}
       </View>
     </SafeAreaView>
   );
