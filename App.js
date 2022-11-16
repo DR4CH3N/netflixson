@@ -1,4 +1,4 @@
-import { StatusBar, StyleSheet } from "react-native";
+import { Button, StatusBar, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -8,6 +8,7 @@ import Home from "./src/screens/Home";
 import Privacidade from "./src/screens/Privacidade";
 import Sobre from "./src/screens/Sobre";
 import Resultados from "./src/screens/Resultados";
+import Detalhes from "./src/screens/Detalhes";
 
 const App = () => {
   /* Inicializando através de uma constante
@@ -51,6 +52,22 @@ const App = () => {
           <Stack.Screen component={Favoritos} name="Favoritos" />
 
           <Stack.Screen component={Resultados} name="Resultados" />
+
+          <Stack.Screen
+            component={Detalhes}
+            name="Detalhes"
+            options={({ navigation }) => {
+              return {
+                headerRight: () => (
+                  <Button
+                    title="Home"
+                    onPress={() => navigation.navigate("Home")}
+                    color="black"
+                  />
+                ),
+              };
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>
