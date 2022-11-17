@@ -1,14 +1,8 @@
-import {
-  Alert,
-  Button,
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-} from "react-native";
+import { Alert, Button, StyleSheet, Text, View, Pressable } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Ionicons } from "@expo/vector-icons";
 
 const Favoritos = () => {
   const [listaFavoritos, setListaFavoritos] = useState([]);
@@ -40,11 +34,17 @@ const Favoritos = () => {
       <View style={estilos.container}>
         <Text>Quantidade: {listaFavoritos.length} </Text>
         <Button title="Excluir favoritos" onPress={excluirFavoritos}></Button>
-      </View>
-      <View>
-        <ScrollView>
-          <Text>Titulo: {listaFavoritos.title}</Text>
-        </ScrollView>
+
+        {listaFavoritos.map((filmeFavorito) => {
+          return (
+            <Pressable style={estilos.itemFilme}>
+              <Text key={filmeFavorito.id}>Titulo: {filmeFavorito.title}</Text>
+              <Pressable style={estilos.botaoExcluir}>
+                <Ionicons name="trash" size={24} color={"black"} />
+              </Pressable>
+            </Pressable>
+          );
+        })}
       </View>
     </SafeAreaView>
   );
@@ -58,5 +58,18 @@ const estilos = StyleSheet.create({
   },
   container: {
     flex: 1,
+  },
+  itemFilme: {
+    padding: 8,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "#ccc",
+    marginVertical: 8,
+    borderRadius: 4,
+    alignItems: "center",
+  },
+  botaoExcluir: {
+    backgroundColor: "light-red",
+    padding: 12,
   },
 });
