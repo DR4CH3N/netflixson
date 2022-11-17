@@ -7,6 +7,7 @@ import {
   ScrollView,
 } from "react-native";
 
+import FotoAlternativa from "../../assets/images/foto-alternativa.jpg";
 /* Prop de route para acesso aos dados trafegados
 entre a navegação entre as telas/rotas */
 const Detalhes = ({ route }) => {
@@ -21,9 +22,14 @@ const Detalhes = ({ route }) => {
       <View style={estilos.container}>
         <ImageBackground
           style={estilos.imagem}
-          source={{
-            uri: `https://image.tmdb.org/t/p/original/${filme.backdrop_path}`,
-          }}
+          /* operador ternario pois if/else não funciona em componentes */
+          source={
+            filme.backdrop_path
+              ? {
+                  uri: `https://image.tmdb.org/t/p/original/${filme.backdrop_path}`,
+                }
+              : FotoAlternativa
+          }
         >
           <Text style={estilos.titulo}>{filme.title}</Text>
         </ImageBackground>
