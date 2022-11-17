@@ -1,3 +1,4 @@
+import { formataData } from "../utils/funcoes";
 import {
   StyleSheet,
   Text,
@@ -36,7 +37,8 @@ const Detalhes = ({ route }) => {
         <View style={estilos.conteudo}>
           <ScrollView>
             <Text>
-              Avaliação: {filme.vote_average} | Lançamento: {filme.release_date}
+              Avaliação: {filme.vote_average} | Lançamento:{" "}
+              {formataData(filme.release_date)}
             </Text>
             <Text style={estilos.descricao}>
               {filme.overview || "sem descrição"}
