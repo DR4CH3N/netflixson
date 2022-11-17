@@ -3,6 +3,10 @@ import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import FotoAlternativa from "../../assets/images/foto-alternativa.jpg";
+// importa o AsyncStorage do expo. NÃO USE do react-native padrão
+import AsyncStorage, {
+  useAsyncStorage,
+} from "@react-native-async-storage/async-storage";
 
 const CardFilme = ({ filme }) => {
   const { title, poster_path } = filme;
@@ -12,6 +16,17 @@ const CardFilme = ({ filme }) => {
   const LeiaMais = () => {
     // Alert.alert("vai!", "detalhes do filme...");
     navigation.navigate("Detalhes", { filme });
+  };
+
+  const salvar = async () => {
+    // return Alert.alert("favoritos", "salvando...");
+    /* Etapa para uso do asyncStorage */
+    // 1) carregamento do storage do aparelho (se houver, caso contrario retorna null)
+    const filmesFavoritos = await AsyncStorage.getItem("@favoritos");
+    // 2) havendo storage previo, transformamos os dados do filme em objeto e os guardamos numa lista (array)
+    // 3) se a lista não for undefined/indefinida, vamos inicia-la vazia
+    // 4) adicionamos os dados do filme na lista (array)
+    // 5) finalmente, salvamos no storage do dispositivo
   };
   return (
     <View style={estilos.card}>
@@ -33,7 +48,7 @@ const CardFilme = ({ filme }) => {
               <Ionicons name="book" size={14} color="5451a6" /> leia mais
             </Text>
           </Pressable>
-          <Pressable style={estilos.botao}>
+          <Pressable style={estilos.botao} onPress={salvar}>
             <Text style={estilos.textobotao}>
               <Ionicons name="add-circle" size={14} color="5451a6" /> salvar
             </Text>
