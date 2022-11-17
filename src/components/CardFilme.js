@@ -37,7 +37,6 @@ const CardFilme = ({ filme }) => {
     await AsyncStorage.setItem("@favoritos", JSON.stringify(listaDeFilmes));
 
     Alert.alert("favoritos", "filme salvo com sucesso!");
-    console.log(listaDeFilmes);
   };
   return (
     <View style={estilos.card}>
