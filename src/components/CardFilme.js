@@ -24,9 +24,9 @@ const CardFilme = ({ filme }) => {
     // 1) carregamento do storage do aparelho (se houver, caso contrario retorna null)
     const filmesFavoritos = await AsyncStorage.getItem("@favoritos");
 
-    // 2) havendo storage previo, transformamos os dados do filme em objeto e os guardamos numa lista (array)
+    // 2) havendo storage previo, transformamos os dados do filme em objeto e os guardamos numa lista (array) pois não podemos usar string para trazer dados
     let listaDeFilmes = JSON.parse(filmesFavoritos);
-    // 3) se a lista não for undefined/indefinida, vamos inicia-la com um array vazio
+    // 3) se a lista for undefined/indefinida, vamos inicia-la com um array vazio
     if (!listaDeFilmes) {
       listaDeFilmes = [];
     }
