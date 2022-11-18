@@ -33,6 +33,17 @@ const CardFilme = ({ filme }) => {
     // 4) adicionamos os dados do filme na lista (array)
     listaDeFilmes.push(filme);
 
+    /* etapa de verificação de filme ja salvo */
+
+    /* para cada filme existente na listaDeFilmes (se existir), vamos verificar se o id do filme existente é igual ao id do filme card */
+    for (let filmeExistente in listaDeFilmes) {
+      /* verificamos se o id do filme existente é igual ao id do filme do card (que está na tela) */
+      if (listaDeFilmes[filmeExistente].id == filme.id) {
+        Alert.alert("obs! você ja adicionou este filme!");
+        return;
+      }
+    }
+
     // 5) finalmente, salvamos no storage do dispositivo
     await AsyncStorage.setItem("@favoritos", JSON.stringify(listaDeFilmes));
 
