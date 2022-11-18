@@ -1,4 +1,12 @@
-import { StyleSheet, Text, View, Image, Pressable, Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Pressable,
+  Alert,
+  Vibration,
+} from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -40,6 +48,7 @@ const CardFilme = ({ filme }) => {
       /* verificamos se o id do filme existente é igual ao id do filme do card (que está na tela) */
       if (listaDeFilmes[filmeExistente].id == filme.id) {
         Alert.alert("obs! você ja adicionou este filme!");
+        Vibration.vibrate(500);
         return;
       }
     }
