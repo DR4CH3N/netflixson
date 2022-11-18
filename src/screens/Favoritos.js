@@ -11,9 +11,12 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const Favoritos = () => {
   const [listaFavoritos, setListaFavoritos] = useState([]);
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     async function carregarFavoritos() {
@@ -37,13 +40,33 @@ const Favoritos = () => {
     carregarFavoritos();
   }, []);
 
+  const verDetalhes = (filmeSelecionado) => {
+    navigation.navigate("Detalhes", { filme: filmeSelecionado });
+  };
+
   const excluirFavoritos = async () => {
     // usamos o removeItem para apagar somente os dados dos @favoritos do nosso app
-    await AsyncStorage.removeItem("@favoritos");
-
-    // atualizar o render do componente (removendo da tela os favoritos)
-    setListaFavoritos([]);
-    Alert.alert("Favoritos", "Favoritos excluidos!");
+    Alert.alert(
+      "Excluir TODOS?",
+      "Tem certeza que deseja excluir TODOS os favoritos?",
+      [
+        {
+          text: "cancelar",
+          onPress: () => {
+            return false;
+          },
+          style: "cancel", // SOMENTE NO IOS
+        },
+        {
+          text: "Sim, exclua",
+          onPress: async () => {
+            await AsyncStorage.removeItem("@favoritos");
+            setListaFavoritos([]);
+          },
+          style: "destructive", // SOMENTE NO IOS
+        },
+      ]
+    );
   };
   const excluirUmFavorito = async (indice) => {
     // Alert.alert(`excluir filme no indice: ${indice}`);
@@ -81,7 +104,11 @@ const Favoritos = () => {
         <ScrollView showsVerticalScrollIndicator={false}>
           {listaFavoritos.map((filmeFavorito, indice) => {
             return (
-              <Pressable key={filmeFavorito.id} style={estilos.itemFilme}>
+              <Pressable
+                onPress={() => verDetalhes(filmeFavorito)}
+                key={filmeFavorito.id}
+                style={estilos.itemFilme}
+              >
                 <Text style={estilos.titulo}> {filmeFavorito.title}</Text>
                 <Pressable
                   style={estilos.botaoExcluir}
