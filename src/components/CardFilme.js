@@ -1,3 +1,6 @@
+// Importe o AsyncStorage do expo. Não use do react-native padrão
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import {
   StyleSheet,
   Text,
@@ -7,80 +10,83 @@ import {
   Alert,
   Vibration,
 } from "react-native";
-import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import FotoAlternativa from "../../assets/images/foto-alternativa.jpg";
-// importa o AsyncStorage do expo. NÃO USE do react-native padrão
-import AsyncStorage, {
-  useAsyncStorage,
-} from "@react-native-async-storage/async-storage";
+import fotoAlternativa from "../../assets/images/foto-alternativa.jpg";
 
 const CardFilme = ({ filme }) => {
   const { title, poster_path } = filme;
 
+  /* Acessar recursos do React Navigation (sem props!) */
   const navigation = useNavigation();
 
-  const LeiaMais = () => {
-    // Alert.alert("vai!", "detalhes do filme...");
+  const leiaMais = () => {
     navigation.navigate("Detalhes", { filme });
   };
 
   const salvar = async () => {
-    // return Alert.alert("favoritos", "salvando...");
-    /* Etapa para uso do asyncStorage */
-    // 1) carregamento do storage do aparelho (se houver, caso contrario retorna null)
+    //return Alert.alert("Favoritos", "Salvando...");
+
+    /* Etapas para uso do AsyncStorage */
+    // 1) Carregamento do storage do aparelho (se houver, caso contrário retorna null)
     const filmesFavoritos = await AsyncStorage.getItem("@favoritos");
 
-    // 2) havendo storage previo, transformamos os dados do filme em objeto e os guardamos numa lista (array) pois não podemos usar string para trazer dados
+    // 2) Havendo storage prévio, transformamos os dados do filme em objeto e os guardamos numa lista (array)
     let listaDeFilmes = JSON.parse(filmesFavoritos);
-    // 3) se a lista for undefined/indefinida, vamos inicia-la com um array vazio
+
+    // 3) Se a lista for indefinida, vamos iniciá-la como um array vazio
     if (!listaDeFilmes) {
       listaDeFilmes = [];
     }
-    // 4) adicionamos os dados do filme na lista (array)
-    listaDeFilmes.push(filme);
 
-    /* etapa de verificação de filme ja salvo */
+    /* Etapa de verificação de filme já salvo */
 
-    /* para cada filme existente na listaDeFilmes (se existir), vamos verificar se o id do filme existente é igual ao id do filme card */
+    /* Para cada filme existente na listaDeFilmes (se existir) */
     for (let filmeExistente in listaDeFilmes) {
-      /* verificamos se o id do filme existente é igual ao id do filme do card (que está na tela) */
+      /* Verificamos se o id do filme existente é igual ao id do
+      filme do card (que está na tela) */
       if (listaDeFilmes[filmeExistente].id == filme.id) {
-        Alert.alert("obs! você ja adicionou este filme!");
-        Vibration.vibrate(500);
+        Alert.alert("Ops!", "Você já salvou este filme!");
+        Vibration.vibrate();
         return;
       }
     }
 
-    // 5) finalmente, salvamos no storage do dispositivo
+    // 4) Adicionamos os dados do filme na lista (array)
+    listaDeFilmes.push(filme);
+
+    // 5) Finalmente, salvamos COMO STRING no storage do dispositivo
     await AsyncStorage.setItem("@favoritos", JSON.stringify(listaDeFilmes));
 
-    Alert.alert("favoritos", "filme salvo com sucesso!");
+    Alert.alert("Favoritos", "Filme salvo com sucesso!");
   };
+
   return (
     <View style={estilos.card}>
       <Image
         style={estilos.imagem}
+        resizeMode="cover"
         source={
           poster_path
             ? {
                 uri: `https://image.tmdb.org/t/p/original/${poster_path}`,
               }
-            : FotoAlternativa
+            : fotoAlternativa
         }
       />
       <View style={estilos.corpo}>
         <Text style={estilos.titulo}> {title} </Text>
+
         <View style={estilos.botoes}>
-          <Pressable style={estilos.botao} onPress={LeiaMais}>
-            <Text style={estilos.textobotao}>
-              <Ionicons name="book" size={14} color="5451a6" /> leia mais
+          <Pressable style={estilos.botao} onPress={leiaMais}>
+            <Text style={estilos.textoBotao}>
+              <Ionicons name="book" size={12} /> Leia mais
             </Text>
           </Pressable>
+
           <Pressable style={estilos.botao} onPress={salvar}>
-            <Text style={estilos.textobotao}>
-              <Ionicons name="add-circle" size={14} color="5451a6" /> salvar
+            <Text style={estilos.textoBotao}>
+              <Ionicons name="add-circle" size={12} /> Salvar
             </Text>
           </Pressable>
         </View>
@@ -92,11 +98,6 @@ const CardFilme = ({ filme }) => {
 export default CardFilme;
 
 const estilos = StyleSheet.create({
-  imagem: {
-    height: 150,
-    width: 100,
-    flex: 1,
-  },
   card: {
     marginVertical: 4,
     flexDirection: "row",
@@ -106,21 +107,12 @@ const estilos = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
-  botao: {
-    padding: 12,
-    borderWidth: 1,
-    borderColor: "#5451a6",
+  imagem: {
+    flex: 1,
+    height: 150,
+    width: 100,
   },
-  botoes: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    marginTop: 8,
-  },
-  textobotao: {
-    color: "#5451a6",
-    fontSize: 12,
-    textTransform: "uppercase",
-  },
+  corpo: { flex: 2 },
   titulo: {
     backgroundColor: "#5451a6",
     color: "white",
@@ -128,7 +120,19 @@ const estilos = StyleSheet.create({
     paddingVertical: 8,
     textAlign: "center",
   },
-  corpo: {
-    flex: 2,
+  botoes: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    marginTop: 8,
+  },
+  botao: {
+    padding: 8,
+    borderWidth: 1,
+    borderColor: "#5451a6",
+  },
+  textoBotao: {
+    color: "#5451a6",
+    fontSize: 12,
+    textTransform: "uppercase",
   },
 });
