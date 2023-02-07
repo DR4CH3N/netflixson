@@ -4,15 +4,16 @@
     "slug": "netflixson",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/dahora.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash-dahora.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffe1ab"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/a39a07bd-5da9-4ec2-b0fc-adefab51f81e"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -22,12 +23,19 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/adaptive-dahora.png",
         "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.h3llc4t.netflixson"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a39a07bd-5da9-4ec2-b0fc-adefab51f81e"
       }
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "owner": "h3llc4t",
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }
